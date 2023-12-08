@@ -63,17 +63,26 @@ try{
     ]);
 
     $client = Client::find($id);
-    if(!$client) return $this->error();
+    if(!$client) return $this->error('cliente nao encontrado', Response::HTTP_NOT_FOUND);
     $client->update($data);
     return $client;
+
 } catch(\Exception $exception){
     return $this->error($exception->getMessage(),Response::HTTP_BAD_REQUEST);
 }
 
 }
+public function destroy($id){
+    $client = Client::find($id);
 
+    if(!$client) return $this->error('Cliente não encontrado', Response::HTTP_NOT_FOUND);
+
+    $client->delete();
+
+    return $this->error('', Response::HTTP_NO_CONTENT);
    
  }
+}
 
     
-}
+
