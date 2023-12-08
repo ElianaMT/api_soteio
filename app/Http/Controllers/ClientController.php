@@ -51,6 +51,29 @@ return $client;
 
     }
  }
- public function
+ public function update(Request $request){
+try{
+    $data = $request->only('name','email','date_birth','address');
+    $request->validate([ 
+        'name' => 'string', 
+        'email' => 'email|unique:clients', 
+        'date_birth' => 'date_format:Y-m-d', 
+        'cpf' => 'string|required|unique:clients', 
+        'address' => 'string'
+    ]);
+
+    $client = Client::find($id);
+    if(!$client) return $this->error();
+    $client->update($data);
+    return $client;
+} catch(\Exception $exception){
+    return $this->error($exception->getMessage(),Response::HTTP_BAD_REQUEST);
+}
+
+}
+
+   
+ }
+
     
 }

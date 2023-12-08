@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route:: post('clients', [ClientController::class,'store']);
 Route:: get('clients', [ClientController::class,'index']);
-Route:: put('clients', [ClientController::class,'update']);
+Route:: put('clients/{id}', [ClientController::class,'update']);
 
 
