@@ -2,10 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\SendAwardToClient;
 use App\Models\Award;
+use App\Models\Client;
 use DateTime;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Mail;
 
 class SendAwards extends Command
 {
@@ -21,7 +24,7 @@ class SendAwards extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Envia email de premios para clientes';
 
     /**
      * Execute the console command.
@@ -30,6 +33,16 @@ class SendAwards extends Command
     {
 
         $date =  (new DateTime('now'))->format('Y-m-d H:i');
-        Award::query()->where('date', '>=', $date)->get();
+       $awards= Award::query()->where('date', '>=', $date)->get();
+
+       foreach($awards as $award){
+       $clients = Client::query()->take($award->amount)->inRandomOrder();
+
+       foreach($clients as $client){
+       Mail:: to($client->email,$client->name)
+       ->send(new SendAwardToClient($client));
+       }
     }
+      
+  }
 }
