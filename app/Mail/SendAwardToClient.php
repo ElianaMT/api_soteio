@@ -39,7 +39,7 @@ class SendAwardToClient extends Mailable
     public function content(): Content
     {
         return new Content(
-            html: 'view.name',
+            html: 'view.SendAward',
         );
     }
 
