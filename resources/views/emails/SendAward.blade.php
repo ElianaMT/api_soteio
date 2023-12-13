@@ -48,7 +48,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container"></div>
         <h1>Desconto Especial!</h1>
         <p>Prezado {{$client->name}},</p>
         <p>Agradecemos por escolher o iFood! Como forma de agradecimento, temos o prazer de oferecer a você um cupom especial para o seu próximo pedido.</p>
